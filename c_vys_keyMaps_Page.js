@@ -6,6 +6,7 @@ import { keyBind, keyMap1 } from "./libs/keyMapBinds1";
 class s_vyskeyMapsPage{
 
   constructor(){
+    this.kmb = undefined;
   }
   
   get getName(){
@@ -19,8 +20,15 @@ class s_vyskeyMapsPage{
   
   getHtml = () => {
 
-    return `<b>${this.getName}</b><br>
-    <img src="${this.homeUrl}assets/ico_viteyss_32.png"><br>
+    return `
+    <img src="${this.homeUrl}assets/ico_keyMapsBindings_32_32.png" style="display:inline"
+      alt="KeyMaps - bindings LOGO">
+    <b>${this.getName}</b><br>
+    <small>
+      This site is test place for your key binds / keyboard shortcuts. 
+      Test setup is using file from \`./libs/keyMapBinds1.js\`
+    </small>
+    <!--
     This is a npm package<br>
     viteyss-site-keyMaps<br>
     <pre>
@@ -30,25 +38,52 @@ class s_vyskeyMapsPage{
 
     More ditails in \`./site.json\`
     </pre>
-    
+    -->
 
-    <div style="width:200px;height:20px;background-color:gray;"
-      id="keyBindTestNode">
-      test area
-    </div>
+    <button onclick="siteByKey.s_vyskeyMapsPage.o.onShowKeyMap();"
+      title="show key map now"
+      >
+        <img src="${this.homeUrl}assets/ico_keyMapsBindings_32_32.png" style="display:inline"
+          alt="KeyMaps - show popup with map">
+        Current keymap
+      </button>
     press:<div id="keyBindPressNow">- - - </div>
+    sub:<div id="keyBindSub">- - - </div>
+    ok:<div id="keyBindOk">- - - </div>
     log:
     <small><div id="keyBindRes">- - -</div></small>
+
+
+<style>
+.kbKey{
+    border-radius: 3px;
+    border:1px solid black;
+    background-color: #fffecb;
+    display:inline-block; 
+    padding: 0px 5px;
+    margin: 1px;
+}
+
+</style>
 
     `;
 
   }
 
+  onShowKeyMap=()=>{
+    document.getElementById('keyBindRes').innerHTML = this.kmb.getKeyDivInfo();
+  }
+
   getHtmlAfterLoad = () =>{
     cl(`${this.getName} - getHtmlAfterLoad()`);
 
-    let kmb = new vyKeyBinder( keyBind, keyMap1 );
-    kmb.init();
+    this.kmb = new vyKeyBinder( keyBind, keyMap1, 
+      (onKeyShort)=>{
+        console.log(`GotKeyShortcut\n`,onKeyShort);
+      }, 
+      true 
+    );
+    this.kmb.init();
     
    
   }

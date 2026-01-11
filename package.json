@@ -4,7 +4,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    
+    "bakeIcons": "icons='keyMapsBindings';iSize='32'; cd /home/yoyo/Apps/icons; for i in $icons;do echo 'make icon: '$i; ./make_icon_resize.sh 'ico_'$i'_256_256.png'; cp 'ico_'$i'_'$iSize'_'$iSize'.png' '/home/yoyo/Apps/viteyss-site-keyMaps/assets/'; done;echo 'ok size: '$iSize; echo 'DONE';",
+    
+    
     "mkBackup": "fn=$npm_package_name\"_v\"$npm_package_version\"_tt\"`date +%y%m%d%H%M%S`\".tar.bz2\"; echo \"name will be [$fn]\";  tar --exclude=\".git\" --exclude=\"node_modules\" -cvf \"../\"$fn ./; echo \"Backup done: [$fn]\"; ls -alh ../$fn"
   },
   "author": "Bartłomiej Ceglik <yoyoek@wp.pl>",
