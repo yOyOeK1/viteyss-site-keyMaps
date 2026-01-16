@@ -2,11 +2,14 @@ import { vyKeyBinder } from "./libs/keyBinder";
 import { keyBind, keyMap1 } from "./libs/keyMapBinds1";
 
 
+console.log(`* inject ... [ vyKeyBinder ]`);
+window['vyKeyBinder'] = vyKeyBinder;
 
 class s_vyskeyMapsPage{
 
   constructor(){
     this.kmb = undefined;
+    
   }
   
   get getName(){

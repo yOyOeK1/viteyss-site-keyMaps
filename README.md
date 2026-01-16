@@ -75,6 +75,19 @@ this.kmb = new vyKeyBinder( keyBind, keyMap1,
 this.kmb.init();
 ```
 
+Nice to add some css to it so it's formated to readable state
+```css
+.kbKey{
+    border-radius: 3px;
+    border:1px solid black;
+    background-color: #fffecb;
+    display:inline-block; 
+    padding: 0px 5px;
+    margin: 3px;
+}
+```
+
+
 #### screenshots
 
 ![](./examples/screen_260111.png)
