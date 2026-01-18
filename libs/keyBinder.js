@@ -18,6 +18,8 @@ class vyKeyBinder{
         this.nodeBindTo = undefined;
         this.nodeRes = undefined;
 
+        this.preventAllDefaultIs = false;
+
 
         this.isDoingIt = false;
 
@@ -29,15 +31,29 @@ class vyKeyBinder{
         
     }
     
+    getIconPath=()=>{        
+        return siteByKey.s_vyskeyMapsPage.o.homeUrl+
+            '/assets/ico_keyMapsBindings_32_32.png';
+    }
+
+    preventAllDefault=( setAs )=>{ 
+        console.log('KMB. preventAllDefault to [ '+setAs+' ]');
+        this.preventAllDefaultIs = setAs;
+    }
+
     disable=()=>{
         console.log('KMB. disable'); 
         this.isDoingIt = false; 
+        this.key.kDown = [];
+
+
         window.removeEventListener('keydown', this.onKeyDown );
         window.removeEventListener('keyup', this.onKeyUp );
      }
     enable=()=>{ 
         console.log('KMB. enable');
         this.isDoingIt = true; 
+
         window.addEventListener('keydown', this.onKeyDown );
         window.addEventListener('keyup', this.onKeyUp );
     }
@@ -186,8 +202,10 @@ class vyKeyBinder{
             dbDiv.innerHTML=kDebugLine+'<br>'+dbDiv.innerHTML;
         }
         
-        //eventReal.preventDefault();
-        //eventReal.stopPropagation();
+        if( this.preventAllDefaultIs == true ){
+            eventReal.preventDefault();
+            eventReal.stopPropagation();
+        }
         this.onTestEnevt(event,'down');
     }
 

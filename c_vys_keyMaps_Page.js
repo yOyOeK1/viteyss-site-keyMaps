@@ -42,7 +42,18 @@ class s_vyskeyMapsPage{
     More ditails in \`./site.json\`
     </pre>
     -->
-
+    <button onclick="siteByKey.s_vyskeyMapsPage.o.kmb.enable();">
+        enable
+      </button>
+    <button onclick="siteByKey.s_vyskeyMapsPage.o.kmb.disable();">
+        disable
+      </button>
+    <a onclick="siteByKey.s_vyskeyMapsPage.o.kmb.preventAllDefault(true);">
+        prevent default on
+      </a> | 
+    <a onclick="siteByKey.s_vyskeyMapsPage.o.kmb.preventAllDefault(false);">
+        prevent default off
+      </a>
     <button onclick="siteByKey.s_vyskeyMapsPage.o.onShowKeyMap();"
       title="show key map now"
       >
