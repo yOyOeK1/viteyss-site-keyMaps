@@ -26,18 +26,28 @@ class vyKeyBinder{
 
     init=()=>{
         this.isDoingIt = true;
+        
+    }
+    
+    disable=()=>{
+        console.log('KMB. disable'); 
+        this.isDoingIt = false; 
+        window.removeEventListener('keydown', this.onKeyDown );
+        window.removeEventListener('keyup', this.onKeyUp );
+     }
+    enable=()=>{ 
+        console.log('KMB. enable');
+        this.isDoingIt = true; 
         window.addEventListener('keydown', this.onKeyDown );
         window.addEventListener('keyup', this.onKeyUp );
     }
-    
-    disable(){ this.isDoingIt = false;  }
-    enable(){ this.isDoingIt = true; }
 
 
     makeBindsOnEvent=( event )=>{
         let tr = {
             key: `${event.key}`,
             keyCode: parseInt(event.keyCode),
+            eventOrg: event,
             altKey: event.altKey,
             ctrlKey: event.ctrlKey
         };
@@ -131,6 +141,10 @@ class vyKeyBinder{
                     if( this.debugDiv ) document.getElementById('keyBindSub').innerHTML = 'xx'+kmap[ kmi+1 ].name;
                 }else{
                     if( this.debugDiv ) document.getElementById('keyBindSub').innerHTML = '';
+
+                    evenMod.eventOrg.preventDefault();
+                    evenMod.eventOrg.stopPropagation();
+
                     this.cbonUsed( kmap[ kmi+1 ] );
                     //kmi = kmap.length; // break ?
                     
@@ -157,7 +171,7 @@ class vyKeyBinder{
 
         
     onKeyDown = ( eventReal ) => {
-        if( !this.isDoingIt ) return 1;
+        if( this.isDoingIt == false ) return 1;
 
         let event = this.makeBindsOnEvent( eventReal );
 
@@ -172,20 +186,20 @@ class vyKeyBinder{
             dbDiv.innerHTML=kDebugLine+'<br>'+dbDiv.innerHTML;
         }
         
-        eventReal.preventDefault();
-        eventReal.stopPropagation();
+        //eventReal.preventDefault();
+        //eventReal.stopPropagation();
         this.onTestEnevt(event,'down');
     }
 
     onKeyUp = ( eventReal ) => {
-        if( !this.isDoingIt ) return 1;
+        if( this.isDoingIt == false ) return 1;
 
         let event = this.makeBindsOnEvent( eventReal );
         this.key.kDown.splice( this.key.kDown.indexOf( event.key), 1 );
 
         //console.log("KMB.keyup:"+event.key);
-        eventReal.preventDefault();
-        eventReal.stopPropagation();
+        //eventReal.preventDefault();
+        //eventReal.stopPropagation();
         this.onTestEnevt(event,'up');
     }
 
